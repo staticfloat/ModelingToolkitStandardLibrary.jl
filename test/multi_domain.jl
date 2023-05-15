@@ -207,5 +207,5 @@ end
     prob = ODEProblem(sys, Pair[], (0, 6.0))
     sol = solve(prob, Rodas4())
     @test sol.retcode == Success
-    @test sol[source.v * source.i] == -sol[env.port.Q_flow]
+    @test sol[source.v * source.i] ≈ -sol[env.port.Q_flow]
 end
