@@ -263,7 +263,7 @@ end
     prob = DAEProblem(sys, D.(states(sys)) .=> 0.0, Pair[], (0, 10.0))
     sol = solve(prob, DFBDF())
     @test SciMLBase.successful_retcode(sol)
-    @test all(sol[inertia1.w] .== 0)
+    @test all(sol[inertia1.w] .≈ 0)
     @test all(sol[inertia1.w] .== sol[speed_sensor.w.u])
     @test sol[inertia2.w][end]≈0 atol=1e-3 # all energy has dissipated
     @test all(sol[rel_speed_sensor.w_rel.u] .== sol[speed_sensor.w.u])
