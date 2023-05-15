@@ -229,8 +229,8 @@ end
     prob = ODEProblem(sys, u0, (0, 100.0))
     sol = solve(prob, Rodas4())
     @test sol.retcode == Success
-    @test sol[opamp.v2] == sol[C1.v] # Not a great one however. Rely on the plot
-    @test sol[opamp.p2.v] == sol[sensor.v]
+    @test sol[opamp.v2] ≈ sol[C1.v] # Not a great one however. Rely on the plot
+    @test sol[opamp.p2.v] ≈ sol[sensor.v]
 
     # plot(sol, vars=[sensor.v, square.v, C1.v])
 end

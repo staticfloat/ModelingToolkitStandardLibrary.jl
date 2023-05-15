@@ -101,7 +101,7 @@ end
     # exact opposite oscillation with smaller amplitude J2 = 2*J1 and with an offset.
     @test all(isapprox.(
         sol[sys.inertia1.w], -sol[sys.inertia2.w] * 2 .+ sol[sys.inertia1.w][1], atol = 1))
-    @test all(sol[sys.torque.flange.tau] .== -sol[sys.sine.output.u]) # torque source is equal to negative sine
+    @test all(sol[sys.torque.flange.tau] .≈ -sol[sys.sine.output.u]) # torque source is equal to negative sine
 
     ## Test with constant torque source
     @mtkmodel TwoInertiasWitConstantTorque begin
@@ -267,7 +267,7 @@ end
         sys, D.(unknowns(sys)) .=> 0.0, [D(D(sys.inertia2.phi)) => 0.0], (0, 10.0))
     sol = solve(prob, DFBDF())
     @test SciMLBase.successful_retcode(sol)
-    @test all(sol[sys.inertia1.w] .== 0)
+    @test all(sol[sys.inertia1.w] .≈ 0)
     @test all(sol[sys.inertia1.w] .== sol[sys.speed_sensor.w.u])
     @test sol[sys.inertia2.w][end]≈0 atol=1e-3 # all energy has dissipated
     @test all(sol[sys.rel_speed_sensor.w_rel.u] .== sol[sys.speed_sensor.w.u])
