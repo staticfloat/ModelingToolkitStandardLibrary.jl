@@ -16,7 +16,7 @@ using OrdinaryDiffEq: ReturnCode.Success
         t, systems = [int, gain, c])
 
     sys = structural_simplify(model)
-    prob = ODEProblem(sys, Pair[int.x => 1.0], (0.0, 1.0))
+    prob = ODEProblem(sys, Pair[int.x => 1.0, int.y => 1.0], (0.0, 1.0))
     sol = solve(prob, Rodas4())
 
     @test isequal(unbound_inputs(sys), [])

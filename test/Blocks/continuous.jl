@@ -19,7 +19,7 @@ an integrator with a constant input is often used together with the system under
     prob = ODEProblem(sys, Pair[], (0.0, 1.0))
     sol = solve(prob, Rodas4())
     @test sol.retcode == Success
-    @test all(sol[c.output.u] .≈ 1)
+    @test all(sol[conny.output.u] .≈ 1)
     @test sol[int.output.u][end] .≈ 2 # expected solution
 end
 

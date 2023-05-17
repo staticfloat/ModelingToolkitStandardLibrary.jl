@@ -17,7 +17,7 @@ eqs = [connect(P.output, C.input)
 sys = ODESystem(eqs, t, systems = [P, C], name = :hej)
 
 ssys = structural_simplify(sys)
-prob = ODEProblem(ssys, [P.x => 1], (0, 10))
+prob = ODEProblem(ssys, [P.x => 1, P.u => 1], (0, 10))
 sol = solve(prob, Rodas5())
 @test norm(sol.u[1]) >= 1
 @test norm(sol.u[end]) < 1e-6 # This fails without the feedback through C
