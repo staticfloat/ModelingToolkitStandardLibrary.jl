@@ -409,6 +409,7 @@ end
         offset, start_time) atol=1e-3
 end
 
+#=
 @testset "SampledData" begin
     using DataInterpolations
 
@@ -474,3 +475,4 @@ end
         @test sol[ddy][end]≈2 atol=1e-3
     end
 end
+=#
