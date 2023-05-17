@@ -17,7 +17,7 @@ using OrdinaryDiffEq: ReturnCode.Success
             t,
             systems = [int, c, sat])
         sys = structural_simplify(model)
-        prob = ODEProblem(sys, [int.x => 1.0], (0.0, 1.0))
+        prob = ODEProblem(sys, [int.x => 1.0, int.y => 1.0], (0.0, 1.0))
 
         sol = solve(prob, Rodas4())
         @test sol.retcode == Success
@@ -64,7 +64,7 @@ end
             t,
             systems = [int, c, dz])
         sys = structural_simplify(model)
-        prob = ODEProblem(sys, [int.x => 1.0], (0.0, 1.0))
+        prob = ODEProblem(sys, [int.x => 1.0, int.y => 1.0], (0.0, 1.0))
         sol = solve(prob, Rodas4())
 
         @test sol.retcode == Success
@@ -83,7 +83,7 @@ end
             t,
             systems = [int, source, dz])
         sys = structural_simplify(model)
-        prob = ODEProblem(sys, [int.x => 1.0], (0.0, 10.0))
+        prob = ODEProblem(sys, [int.x => 1.0, int.y => 1.0], (0.0, 10.0))
         sol = solve(prob, Rodas4())
 
         @test sol.retcode == Success

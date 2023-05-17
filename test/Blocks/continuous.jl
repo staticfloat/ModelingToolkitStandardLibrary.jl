@@ -12,14 +12,14 @@ an integrator with a constant input is often used together with the system under
 =#
 
 @testset "Constant" begin
-    @named c = Constant(; k = 1)
+    @named conny = Constant(; k = 1)
     @named int = Integrator()
-    @named iosys = ODESystem(connect(c.output, int.input), t, systems = [int, c])
+    @named iosys = ODESystem(connect(conny.output, int.input), t, systems = [int, conny])
     sys = structural_simplify(iosys)
-    prob = ODEProblem(sys, Pair[int.x => 1.0], (0.0, 1.0))
+    prob = ODEProblem(sys, Pair[int.x => 1.0, int.y => 1.0], (0.0, 1.0))
     sol = solve(prob, Rodas4())
     @test sol.retcode == Success
-    @test all(sol[c.output.u] .≈ 1)
+    @test all(sol[conny.output.u] .≈ 1)
     @test sol[int.output.u][end] .≈ 2 # expected solution
 end
 
