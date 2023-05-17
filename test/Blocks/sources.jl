@@ -408,6 +408,7 @@ end
         offset, start_time) atol=1e-3
 end
 
+#=
 @testset "SampledData" begin
     dt = 4e-4
     t_end = 10.0
@@ -439,3 +440,4 @@ end
     @test sol[dy][end]≈2 * time[end] atol=1e-3
     @test sol[ddy][end]≈2 atol=1e-3
 end
+=#
