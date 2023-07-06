@@ -214,9 +214,9 @@ end
             angle_sensor,
         ])
     sys = structural_simplify(model)
-    prob = DAEProblem(sys, D.(states(sys)) .=> 0.0, Pair[], (0, 10.0))
+    prob = ODEProblem(sys, D.(states(sys)) .=> 0.0, (0, 10.0))
 
-    sol = solve(prob, DFBDF())
+    sol = solve(prob, Rodas4P())
     @test SciMLBase.successful_retcode(sol)
     @test sol[angle_sensor.phi.u] == sol[inertia.flange_a.phi]
 
