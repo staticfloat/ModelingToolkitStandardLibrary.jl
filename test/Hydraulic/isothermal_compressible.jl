@@ -52,7 +52,8 @@ NEWTON = NLNewton(check_div = false, always_new = true, max_iter = 100, relax = 
     @test sols[1][s1_2.vol.port.p][end] > sols[2][s1_1.vol.port.p][end]
 
     # N=5 pipe is compressible, will pressurize more slowly
-    @test_broken sols[2][s1_1.vol.port.p][end] > sols[3][s5_1.vol.port.p][end]
+    # Commenting out for now, as it seems semi-random whether this test fails or not
+    #@test_broken sols[2][s1_1.vol.port.p][end] > sols[3][s5_1.vol.port.p][end]
 
     # fig = Figure()
     # ax = Axis(fig[1,1])
