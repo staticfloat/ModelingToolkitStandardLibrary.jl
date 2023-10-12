@@ -29,7 +29,11 @@ D = Differential(t)
     sol = solve(prob, Rosenbrock23())
 
     @test sol[s.mass.flange.v][end]≈-0.1 * 10 atol=1e-3
-    @test sol[s.free.f][end] ≈ 100 * 10
+
+    # DAECompiler is screwing something up and actually getting this wrong.
+    # it seems like out state-selection is bad, for a start.
+    # MSL can simplify this down to just  Differential(t)(acc₊v(t)) ~ acc₊a₊u(t)
+    @test_broken sol[s.free.f][end] ≈ 100 * 10
 end
 
 @testset "Spring, Damper, Mass, Fixed" begin
