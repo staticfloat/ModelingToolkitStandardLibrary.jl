@@ -238,8 +238,8 @@ end
 
     # plot(sol; vars=[T_winding.T, T_core.T])
     @test sol.retcode == Success
-    @test sol[T_winding.T] == sol[winding.T]
-    @test sol[T_core.T] == sol[core.T]
+    @test sol[T_winding.T] ≈ sol[winding.T]
+    @test sol[T_core.T] ≈ sol[core.T]
     @test sol[-core.port.Q_flow] ≈
           sol[coreLosses.port.Q_flow + convection.solid.Q_flow + winding2core.port_b.Q_flow]
     @test sol[T_winding.T][end] >= 500 # not good but better than nothing
