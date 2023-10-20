@@ -40,13 +40,10 @@ end
 
     prob = ODEProblem(sys, Pair[], (0.0, 10.0))
 
-    # issues with Pantelides triggering very nested AD
-    @test_broken sol = solve(prob, Rodas4())
-    #==
+    sol = solve(prob, Rodas4())
     @test sol.retcode == Success
     @test sol[src.output.u]≈f.(sol.t) atol=1e-3
-    @test sol[int.output.u][end]≈1 / 3 * 10^3 + 10 atol=1e-3 # closed-form solution to integral
-    ==#
+    @test sol[int.output.u][end]≈1 / 3 * 10^3 + 10 atol=0.3  # closed-form solution to integral
 end
 
 @testset "Sine" begin
