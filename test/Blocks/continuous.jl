@@ -410,6 +410,9 @@ end
         @test all(-1.5 .<= sol[pid_controller.ctr_output.u] .<= 1.5) # test limit
     end
 
+    # Requires support for arrays in DAECompiler
+    # https://github.com/JuliaComputing/DAECompiler.jl/issues/678
+    #==
     @testset "TransferFunction" begin
         pt1_func(t, k, T) = k * (1 - exp(-t / T)) # Known solution to first-order system
 
@@ -476,4 +479,5 @@ end
         @test sol.retcode == Success
         @test all(==(2.7 / pi), sol[pt1.output.u])
     end
+    ==#
 end
