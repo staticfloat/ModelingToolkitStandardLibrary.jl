@@ -35,7 +35,7 @@ NEWTON = NLNewton(check_div = false, always_new = true, max_iter = 100, relax = 
     @named sys1_1 = System(1; bulk_modulus = 1e9)
     @named sys5_1 = System(5; bulk_modulus = 1e9)
 
-    syss = structural_simplify.([sys1_2, sys1_1, sys5_1])
+    syss = structural_simplify.(expand_connections.([sys1_2, sys1_1, sys5_1]))
     probs = [ODEProblem(sys, ModelingToolkit.missing_variable_defaults(sys), (0, 0.05))
              for sys in syss] #
     sols = [solve(prob, ImplicitEuler(nlsolve = NEWTON); initializealg = NoInit(),
@@ -86,7 +86,7 @@ end
 
     @named valve_system = System()
     s = complete(valve_system)
-    sys = structural_simplify(valve_system)
+    sys = structural_simplify(expand_connections(valve_system))
     prob = ODEProblem(sys, [], (0, 0.01))
     sol = solve(prob, ImplicitEuler(nlsolve = NEWTON); adaptive = false, dt = 1e-4,
         initializealg = NoInit())
