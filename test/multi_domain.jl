@@ -200,5 +200,5 @@ end
     prob = ODEProblem(sys, unknowns(sys) .=> 0.0, (0, 6.0))
     sol = solve(prob, Rodas4())
     @test sol.retcode == Success
-    @test sol[sys.source.v * sys.source.i] ≈ -sol[sys.env.port.Q_flow]
+    @test sol[sys.source.v] .* sol[sys.source.i] ≈ -sol[sys.env.port.Q_flow]
 end
